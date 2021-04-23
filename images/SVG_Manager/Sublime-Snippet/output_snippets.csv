@@ -40,3 +40,5 @@ set;void set(Point origin, string text, Style style, string label) ;./Svg_Manage
 Polygon;Polygon() ;./Svg_Manager_Snippet/SCpp38_SVGManagerPolygon.sublime-snippet;38 
 save;void save() ;./Svg_Manager_Snippet/SCpp39_SVGManagerSave.sublime-snippet;39 
 clear;void clear() ;./Svg_Manager_Snippet/SCpp40_SVGManagerClear.sublime-snippet;40 
+setPath;void setPath(string path) ;./Svg_Manager_Snippet/SCpp41_SVGManagerSetPath.sublime-snippet;41 
+background;void background(bool enable) ;./Svg_Manager_Snippet/SCpp42_SVGManagerBackground.sublime-snippet;42 
