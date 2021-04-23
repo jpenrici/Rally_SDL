@@ -60,7 +60,7 @@ void Player::moveRight()
         return;
     }
 
-    if (position.getX() < SCREEN_WIDTH - (PLAYER_WIDTH * 0.9))
+    if (position.getX() < (SCREEN_WIDTH - (PLAYER_WIDTH * 0.9)))
     {
         GameObject::move(HORIZONTAL_OFFSET, VERTICAL_OFFSET);
     }

@@ -32,25 +32,24 @@ bool Game::init()
     }
 
     // load textures
-    if (!RallyTextureManager::Instance()->load(PLAYER_PATH, "player", renderer))
+    vector<vector<string> > data {
+        {PLAYER_PATH,           "player"},
+        {OBSTACLE_PATH,       "obstacle"},
+        {ODOMETER_PATH,       "odometer"},
+        {SPEEDOMETER_PATH, "speedometer"},
+        {BG_PATH,            "landscape"}
+    };
+    for (auto i : data)
     {
-        cout << "load image fail\n";
-        return false;
+        if (!RallyTextureManager::Instance()->load(i[0], i[1], renderer))
+        {
+            cout << "load image fail\n";
+            return false;
+        }
     }
 
-    if (!RallyTextureManager::Instance()->load(SPEEDOMETER_PATH, "speedometer",
-        renderer))
-    {
-        cout << "load image fail\n";
-        return false;
-    }
-
-    if (!RallyTextureManager::Instance()->load(OBSTACLE_PATH, "obstacle",
-        renderer))
-    {
-        cout << "load image fail\n";
-        return false;
-    }   
+    // Background
+    landscape.load(0, 0, BG_WIDTH, BG_HEIGHT, 0, 1, "landscape");
 
     cout << "init success\n";
     isRunning = true;
@@ -61,24 +60,24 @@ bool Game::init()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);   
-    
+
+    landscape.draw(renderer);
     player.draw(renderer);
     obstacle.draw(renderer);
-    speedMeter.draw(renderer);
+    speedometer.draw(renderer);
+    odometer.draw(renderer);
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::update()
 {
+    landscape.draw(renderer);
     player.update();
     obstacle.update();
-    speedMeter.update();
-                    
-    obstacle.velocity(player.velocity());               
-    speedMeter.velocity(player.velocity());
-
+    speedometer.update();
+    odometer.update();
+                     
     status();   
 }
 
@@ -143,14 +142,28 @@ void Game::status()
         player.Y, player.velocity());
     printf("Obstacle: Position (%.2f, %.2f) ", obstacle.X, obstacle.Y);
 
-    bool stop = false;
+    // Update dynamics
+    obstacle.velocity(player.velocity());               
+    speedometer.velocity(player.velocity());
+    odometer.value(obstacle.counter());
+
+    // Out of range
+    if (player.X < BORDER_LEFT || player.X > BORDER_RIGHT)
+    {
+        if (player.velocity() > 5)
+        {
+            printf("Alert !!!");
+            player.accelarate(-1);
+        }
+    }
+
+    // Check collisions
     for (int x = player.X; x < player.X + PLAYER_WIDTH; x += 2)
     {
-        stop = obstacle.checkCollision(x, player.Y);
-        if (stop) 
+        if (obstacle.checkCollision(x, player.Y)) 
         {
             printf("Collision ...");
-            player.accelarate(-2);
+            player.accelarate(-1);
             break;
         }
     }

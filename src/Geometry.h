@@ -106,6 +106,7 @@ class Rectangle
 {
 public:
 
+    Rectangle() : origin(Vector2D(0, 0)), width(0), height(0) {}
     Rectangle(Vector2D origin, float width, float height) : origin(origin),
         width(width), height(height) {}
     ~Rectangle() {}

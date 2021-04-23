@@ -1,7 +1,7 @@
 # Makefile
 
-RallyGame : main.o Game.o TextureManager.o GameObject.o Player.o Obstacle.o Speedometer.o
-	g++ -g -Wall -o RallyGame main.o Game.o TextureManager.o GameObject.o Player.o Obstacle.o Speedometer.o -lSDL2 -lSDL2_image
+RallyGame : main.o Game.o TextureManager.o GameObject.o Player.o Obstacle.o Speedometer.o Odometer.o
+	g++ -g -Wall -o RallyGame main.o Game.o TextureManager.o GameObject.o Player.o Obstacle.o Speedometer.o Odometer.o -lSDL2 -lSDL2_image
 
 main.o : main.cpp Game.h
 	g++ -g -Wall -c main.cpp -lSDL2 -lSDL2_image
@@ -17,6 +17,9 @@ TextureManager.o : TextureManager.cpp TextureManager.h
 
 Speedometer.o : Speedometer.cpp Speedometer.h GameObject.h Utils.h
 	g++ -g -Wall -c Speedometer.cpp -lSDL2 -lSDL2_image
+
+Odometer.o : Odometer.cpp Odometer.h GameObject.h Utils.h
+	g++ -g -Wall -c Odometer.cpp -lSDL2 -lSDL2_image	
 
 Obstacle.o : Obstacle.cpp Obstacle.h GameObject.h Utils.h
 	g++ -g -Wall -c Obstacle.cpp -lSDL2 -lSDL2_image	

@@ -9,11 +9,11 @@ using std::string;
 
 Obstacle::Obstacle()
 {
+    currentCounter = 0;
     currentVelocity = VELOCITY_MIN;
-
-    int x = (SCREEN_WIDTH / 2) - (OBSTACLE_WIDTH / 2);    
-    GameObject::load(x, 0, OBSTACLE_WIDTH, OBSTACLE_HEIGHT, rand_frame(), 1,
-        "obstacle");
+   
+    GameObject::load(OBSTACLE_WIDTH, 0, OBSTACLE_WIDTH, OBSTACLE_HEIGHT,
+        rand_frame(), 1, "obstacle");
 }
 
 void Obstacle::draw(SDL_Renderer* renderer)
@@ -39,9 +39,11 @@ void Obstacle::update()
         return;
     }
 
-    int x = rand() % (SCREEN_WIDTH - OBSTACLE_WIDTH);
-    position = Vector2D(OBSTACLE_WIDTH + x, 0);
+    int interval = BORDER_RIGHT - BORDER_LEFT;
+    int x = rand() % interval;
+    position = Vector2D(BORDER_LEFT + x, 0);
     currentFrame = rand_frame();
+    currentCounter++;
 }
 
 int Obstacle::rand_frame()
@@ -49,9 +51,9 @@ int Obstacle::rand_frame()
     return rand() % OBSTACLE_FRAMES;
 }
 
-float Obstacle::velocity()
+int Obstacle::counter()
 {
-    return currentVelocity;
+    return currentCounter;
 }
 
 void Obstacle::velocity(float velocity)
@@ -81,7 +83,7 @@ bool Obstacle::checkCollision(float point_X, float point_Y)
 
     if (collision)
     {
-        position.setY(position.getY() - OBSTACLE_HEIGHT / 10);
+        position.setY(position.getY() - OBSTACLE_HEIGHT * 0.1);
     }
 
     return collision;

@@ -5,6 +5,7 @@
 #include "Speedometer.h"
 #include "Obstacle.h"
 #include "Player.h"
+#include "Odometer.h"
 #include "Utils.h"
 
 #include <SDL2/SDL.h>
@@ -46,7 +47,11 @@ private:
 
     Player player;
     Obstacle obstacle;
-    Speedometer speedMeter;
+
+    Odometer odometer;
+    Speedometer speedometer;
+
+    GameObject landscape;
 
     bool isRunning;
 

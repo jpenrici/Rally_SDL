@@ -17,7 +17,7 @@ public:
     void draw(SDL_Renderer* renderer);
     void update();
 
-    float velocity();
+    int counter();
     void velocity(float velocity);
     bool checkCollision(float point_X, float point_Y);
 
@@ -25,6 +25,7 @@ private:
     const float VELOCITY_MIN = SPEEDOMETER_MIN;
     const float VELOCITY_MAX = SPEEDOMETER_MAX;
     
+    int currentCounter;
     float currentVelocity;
 
     int rand_frame();
