@@ -104,8 +104,4 @@ class SVG
     ./CreateSVG
 ```
 
-**Code:** [example.cpp](https://github.com/jpenrici/SVG_Manager/blob/main/src/example.cpp)
-
-**Result:**<br>
-
-![Example](https://github.com/jpenrici/SVG_Manager/blob/main/images/example.png)
+**Code:** example.cpp
