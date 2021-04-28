@@ -1,9 +1,9 @@
 /*
  *   Compile:
- *      g++ Test_Vector2D.cpp -o Test_Vector2D
+ *      g++ Test_Geometry.cpp -o Test_Geometry
  *
  *   Run:
- *      ./Test_Vector2D
+ *      ./Test_Geometry
 */
 #include "Geometry.h"
 #include <iostream>
